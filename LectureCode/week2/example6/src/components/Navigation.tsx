@@ -1,0 +1,36 @@
+import Link from "next/link";
+import { useAuth } from "../context/AuthContext";
+
+export default function Navigation() {
+  const { user, logout } = useAuth();
+
+  return (
+    <nav className="bg-gray-800 text-white p-4">
+      <div className="container mx-auto flex justify-between items-center">
+        <Link href="/" className="text-xl font-bold">
+          Auth Demo
+        </Link>
+        <div>
+          {user ? (
+            <div className="flex items-center gap-4">
+              <span>Welcome, {user.username}!</span>
+              <button
+                onClick={logout}
+                className="bg-red-500 px-4 py-2 rounded hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="bg-blue-500 px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Login
+            </Link>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}
